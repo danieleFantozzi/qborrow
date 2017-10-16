@@ -64,6 +64,17 @@ public class QborrowManager {
         return list;
     }
 
+    /**
+     * funzione per ottenere i miei oggetti.
+     * lo username viene settato nel oggetto search dallo userContext
+     */
+
+    @Transactional(readOnly = true)
+    public List<Oggetto> getMieiOggettiList(OggettoSearch oggettoSearch) {
+        List<Oggetto> list = daoFactory.getOggettoDAO().getMieiOggettiList(oggettoSearch);
+        return list;
+    }
+
     @Transactional(readOnly = true)
     public List<Oggetto> getOggettoListBySoggetto(String proprietario_username) {
         List<Oggetto> list = daoFactory.getOggettoDAO().getOggettoListByProprietario(proprietario_username);
@@ -83,7 +94,10 @@ public class QborrowManager {
     public Long countOggetto(OggettoSearch oggettoSearch) {
         return daoFactory.getOggettoDAO().count(oggettoSearch);
     }
-
+    @Transactional(readOnly = true)
+    public Long countMieiOggetti(OggettoSearch oggettoSearch) {
+        return daoFactory.getOggettoDAO().countMieiOggetti(oggettoSearch);
+    }
     /**
      * retrieve from persistence system the required Oggetto record
      * 
