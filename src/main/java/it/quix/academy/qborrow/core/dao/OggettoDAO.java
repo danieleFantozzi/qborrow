@@ -129,8 +129,7 @@ public class OggettoDAO extends OggettoAbstractDAO {
             closeConnection(connection);
         }
     }
-    
-    
+
     /**
      * Return the StringBuilder that compose where clause on query
      * 
@@ -179,19 +178,16 @@ public class OggettoDAO extends OggettoAbstractDAO {
             parameters.put(new Integer(p), search.getDataUltimaModificaTo());
             p++;
         }
-        if (search.getIsInPrestito()!=null){
-        if (search.getIsInPrestito()){
-        	whereClause.append("AND beneficiario is not null ");
-            
-        	
+        if (search.getIsInPrestito() != null) {
+            if (search.getIsInPrestito()) {
+                whereClause.append("AND beneficiario is not null ");
+
+            } else {
+                whereClause.append("AND beneficiario is null ");
+
+            }
         }
-        else{
-        	whereClause.append("AND beneficiario is null ");
-            
-        	
-        }
-        }
-        
+
         if (search.getProprietario() != null) {
             whereClause.append("AND proprietario = ?  ");
             parameters.put(new Integer(p), search.getProprietario().getUsername());
@@ -206,7 +202,7 @@ public class OggettoDAO extends OggettoAbstractDAO {
         }
         return whereClause;
     }
-    
+
     public Long countMieiOggetti(OggettoSearch search) {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -219,7 +215,7 @@ public class OggettoDAO extends OggettoAbstractDAO {
             query.append(" LEFT JOIN prestiti on oggetti.id=prestiti.oggetto_prestato ");
             query.append(" LEFT JOIN soggetti on prestiti.beneficiario=soggetti.username ");
             query.append(" WHERE 1 = 1  ");
-            
+
             Map<Integer, Object> parameters = new HashMap<Integer, Object>();
             query.append(getWhereQuery(parameters, search));
             // Query logging

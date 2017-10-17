@@ -94,10 +94,12 @@ public class QborrowManager {
     public Long countOggetto(OggettoSearch oggettoSearch) {
         return daoFactory.getOggettoDAO().count(oggettoSearch);
     }
+
     @Transactional(readOnly = true)
     public Long countMieiOggetti(OggettoSearch oggettoSearch) {
         return daoFactory.getOggettoDAO().countMieiOggetti(oggettoSearch);
     }
+
     /**
      * retrieve from persistence system the required Oggetto record
      * 
