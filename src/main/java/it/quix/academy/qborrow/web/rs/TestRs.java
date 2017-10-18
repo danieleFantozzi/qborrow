@@ -27,41 +27,37 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class TestRs {
 
-	@Resource(name="qborrowManager")
-	protected QborrowManager qborrowmanager;
-	
-	
+    @Resource(name = "qborrowManager")
+    protected QborrowManager qborrowmanager;
+
     @GET
     public Response getOggetti() {
 
-
         List<Oggetto> listOggetti = new ArrayList<Oggetto>();
-        OggettoSearch oggettoSearch=new OggettoSearch();
-        listOggetti=qborrowmanager.getOggettoList(oggettoSearch);
-//        oggetto.setCategoria("penna");
+        OggettoSearch oggettoSearch = new OggettoSearch();
+        listOggetti = qborrowmanager.getOggettoList(oggettoSearch);
+        // oggetto.setCategoria("penna");
         return Response.ok(listOggetti, MediaType.APPLICATION_JSON).build();
 
     }
 
-     @POST
-     public Oggetto postOggetto(Oggetto oggetto){
-     return oggetto;
-     }
-    
-    
+    @POST
+    public Oggetto postOggetto(Oggetto oggetto) {
+        return oggetto;
+    }
+
     @PUT
-    public Oggetto putOggetto(Oggetto oggetto){
-        Oggetto oggetto2=new Oggetto();
-        
+    public Oggetto putOggetto(Oggetto oggetto) {
+        Oggetto oggetto2 = new Oggetto();
+
         return oggetto;
-        }
-    
+    }
+
     @DELETE
-    public String deleteOggetto(Oggetto oggetto){
-        Oggetto oggetto2=new Oggetto();
-        
-        return oggetto;
-        }
-    
+    public String deleteOggetto(Oggetto oggetto) {
+        Oggetto oggetto2 = new Oggetto();
+
+        return "ciao";
+    }
 
 }

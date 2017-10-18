@@ -7,7 +7,7 @@ import javax.jws.WebService;
 
 @WebService
 public interface TestWsOggetto {
-	
-	@WebMethod
+
+    @WebMethod
     Oggetto getObject(Integer id);
 }

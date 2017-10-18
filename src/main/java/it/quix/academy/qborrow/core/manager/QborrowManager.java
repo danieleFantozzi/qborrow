@@ -550,6 +550,13 @@ public class QborrowManager {
         return soggetto;
     }
 
+    @Transactional(readOnly = true, rollbackFor = { QborrowException.class })
+    public Soggetto getSoggettoWithCompleanno(String username) throws DAOFinderException {
+        Soggetto soggetto = null;
+        soggetto = daoFactory.getSoggettoDAO().getWithCompleanno(username);
+        return soggetto;
+    }
+
     /**
      * persist the passed Soggetto object to database, previous validation
      * 
@@ -563,6 +570,11 @@ public class QborrowManager {
     @Transactional(rollbackFor = { QborrowException.class, ValidationException.class })
     public Soggetto saveSoggetto(Soggetto soggetto) throws QborrowException, ValidationException {
         return saveSoggetto(soggetto, true);
+    }
+
+    @Transactional(rollbackFor = { QborrowException.class, ValidationException.class })
+    public Soggetto saveSoggettoWithCompleanno(Soggetto soggetto) throws QborrowException, ValidationException {
+        return saveSoggettoWithCompleanno(soggetto, true);
     }
 
     /**
@@ -585,6 +597,19 @@ public class QborrowManager {
             createSoggetto(soggetto, validate);
         } else {
             updateSoggetto(soggetto, validate);
+        }
+        return soggetto;
+    }
+
+    @Transactional(rollbackFor = { QborrowException.class, ValidationException.class })
+    public Soggetto saveSoggettoWithCompleanno(Soggetto soggetto, boolean validate) throws QborrowException, ValidationException {
+        if (validate) {
+            validateSoggetto(soggetto);
+        }
+        if (soggetto.getUsername() == null) {
+            createSoggetto(soggetto, validate);
+        } else {
+            updateSoggettoWithCompleanno(soggetto, validate);
         }
         return soggetto;
     }
@@ -662,6 +687,21 @@ public class QborrowManager {
         try {
 
             daoFactory.getSoggettoDAO().update(soggetto);
+
+            return soggetto;
+        } catch (DAOStoreException ex) {
+            throw new QborrowException(ex, soggetto);
+        }
+    }
+
+    @Transactional(rollbackFor = { QborrowException.class, ValidationException.class })
+    public Soggetto updateSoggettoWithCompleanno(Soggetto soggetto, boolean validate) throws QborrowException, ValidationException {
+        if (validate) {
+            validateSoggetto(soggetto);
+        }
+        try {
+
+            daoFactory.getSoggettoDAO().updateWithCompleanno(soggetto);
 
             return soggetto;
         } catch (DAOStoreException ex) {

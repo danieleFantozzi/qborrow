@@ -31,6 +31,7 @@ import it.quix.academy.qborrow.Configuration;
 import it.quix.academy.qborrow.core.manager.QborrowManager;
 import it.quix.framework.core.composer.annotation.QrExcelColumn;
 import it.quix.framework.core.converter.annotation.QcDateTimeType;
+import it.quix.framework.core.converter.annotation.QcDateType;
 import it.quix.framework.core.exception.DAOFinderException;
 import it.quix.framework.core.exception.ModelJdbcException;
 import it.quix.framework.core.handler.SysAttributeHandler;
@@ -145,6 +146,12 @@ public class Soggetto extends QborrowAbstractModel implements Serializable {
     @QrExcelColumn(order = 0)
     private Date dataUltimaModifica;
 
+    @Column(name = "data_compleanno", nullable = false)
+    @QcDateType()
+    @Temporal(TemporalType.DATE)
+    @QrExcelColumn(order = 0)
+    private Date dataCompleanno;
+
     /**
 	 */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "proprietario")
@@ -251,6 +258,7 @@ public class Soggetto extends QborrowAbstractModel implements Serializable {
         sb.append(", ").append("immagine=").append(immagine);
 
         sb.append(", ").append("dataUltimaModifica=").append(dataUltimaModifica);
+        sb.append(", ").append("dataCompleanno=").append(dataCompleanno);
 
         sb.append(", ").append("oggetti=").append(oggetti);
 
@@ -532,6 +540,14 @@ public class Soggetto extends QborrowAbstractModel implements Serializable {
      */
     public void setDataUltimaModifica(Date dataUltimaModifica) {
         this.dataUltimaModifica = dataUltimaModifica;
+    }
+
+    public Date getDataCompleanno() {
+        return dataCompleanno;
+    }
+
+    public void setDataCompleanno(Date dataCompleanno) {
+        this.dataCompleanno = dataCompleanno;
     }
 
     /**
