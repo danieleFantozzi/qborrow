@@ -1,0 +1,155 @@
+/* QBorrow stile */
+@font-face {
+	font-family: 'opensansregular';
+	src: url('../fonts/OpenSans-Regular.ttf');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'opensansregular';
+	src: url('../fonts/OpenSans-Bold.ttf');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'opensansregular';
+	src: url('../fonts/OpenSans-Italic.ttf');
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'titillium';
+	src: url('../fonts/TitilliumWeb-Regular.ttf');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'titillium';
+	src: url('../fonts/TitilliumWeb-Light.ttf');
+	font-weight: 100;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'titillium';
+	src: url('../fonts/TitilliumWeb-Bold.ttf');
+	font-weight: bold;
+	font-style: normal;
+}
+
+body {
+	font-family: 'opensansregular', sans-serif;
+	font-weight: bold;
+}
+
+body h1, body h2, body h3, body h4, body h5, body h6 {
+	font-family: 'titillium', sans-serif;
+	font-weight: 100;
+}
+
+/*Navigation menu*/
+.qnav .qopen>a, .qnav .qopen>a:hover, .qnav .qopen>a:focus {
+	background: none;
+}
+
+.qnavbar-default {
+	border-radius: 0px;
+	background: #2574A9
+}
+
+.qnavbar-default .qnav li a.framework-sidebar-menu-element-link {
+	color: white;
+	text-transform: uppercase;
+	font-size: 14px;
+}
+
+@media (min-width: 768px) {
+	.qnavbar-nav {
+		margin-left: 8%;
+		margin-top:6px;
+	}
+}
+
+.qnav .frameworkHeaderRightCellUserDiv .user-menu-link{
+	color:white;
+}
+.qnav .frameworkHeaderRightCellUserDiv {
+	border:none;
+}
+.qnav .frameworkHeaderRightCellUserDiv .user-menu-link .fa-user{
+	font-size: 20px;
+	margin-right: 15px;
+	border: 1px solid white;
+	border-radius:100px;
+	padding:5px;
+	width:20px;
+	height: 20px;
+	text-align: center;
+	}
+
+.qnavbar-brand{
+	height:auto;
+}
+.qnavbar-right{
+	margin-top: :0px;
+}
+
+.qnavbar-default .qnavbar-toggle .qicon-bar {
+    border-color: #ddd;
+    background-color: white;
+}
+
+.qnavbar-default .qnavbar-toggle:hover .qicon-bar {
+    border-color: #ddd;
+    background-color: #888;
+}
+.qnavbar-default .qnavbar-toggle:hover{
+	cursor: pointer;
+}
+
+
+/*Main content*/
+.frameworkMainCell {
+	display: block;
+	background: none;
+	min-height: 900px;
+}
+
+/*footer*/
+.copy {
+	font-size: 12px;
+	text-align: center;
+	background: #efefef;
+	padding: 25px 0px;
+	color: #949494;
+	letter-spacing: 1px;
+	border-top: 1px solid #d6d6d6;
+}
+
+.copy a {
+	color: #949494;
+	text-decoration: underline;
+	transition: 0.5s;
+	text-transform: uppercase;
+}
+
+.copy a:hover {
+	color: #449ef1;
+}
+
+.qrow .menuIcon {
+	text-align:center;
+	
+	 
+	
+}
+.qrow .menuIcon div{
+	font-size: 57px;
+	background: #efefef;
+	
+}
+
