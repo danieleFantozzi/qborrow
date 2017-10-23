@@ -23,43 +23,48 @@
 					</div>
 					<div class="qrow">
 						<div class="qcol-md-3 menuIcon">
-						<div>
-								<i class="fa fa-book" aria-hidden="true"></i>
-								</div>
 						
+						<div class="image">
+								<i class="fa fa-book" aria-hidden="true"></i>
+								
+						<p>
 						<s:a href="%{#oggettoUrl}">Oggetto</s:a>
 								<s:url id="oggettoUrl" action="oggetto" escapeAmp="false" includeParams="none">
 									<s:param name="task">mainPage</s:param>
 								</s:url>
-								
+							</p>
+							</div>	
 						</div>
 						<div class="qcol-md-3 menuIcon">
 						
-						<div>
+						<div class="image">
 								<i class="fa fa-usd" aria-hidden="true"></i>
-								</div>
-						<s:a href="%{#oggettoUrl}">Prestito</s:a>
-								<s:url id="prestitoUrl" action="prestito" escapeAmp="false" includeParams="none">
-									<s:param name="task">mainPage</s:param>
-								</s:url>
-						</div>
-						<div class="qcol-md-3 menuIcon">
-						<div>
-								<i class="fa fa-users" aria-hidden="true"></i>
-								</div>
-						<s:a href="%{#oggettoUrl}">Soggetto</s:a>
+						<p>		
+						<s:a href="%{#prestitoUrl}">Prestito</s:a></li>
 								<s:url id="soggettoUrl" action="soggetto" escapeAmp="false" includeParams="none">
 									<s:param name="task">mainPage</s:param>
 								</s:url>
+						</p>
+						</div>
 						</div>
 						<div class="qcol-md-3 menuIcon">
-						<div>
-								<i class="fa fa-university" aria-hidden="true"></i>
-								</div>
-						<s:a href="%{#oggettoUrl}">Framework</s:a>
+						<div class="image">
+								<i class="fa fa-users" aria-hidden="true"></i>
+						<p>		
+						<s:a href="%{#soggettoUrl}">Soggetto</s:a></li>						
 								<s:url id="frmkUrl" namespace="/framework" action="admin" escapeAmp="false" includeParams="none">
 				  					<s:param name="version">2</s:param>
 				  				</s:url>
+						</p>
+						</div>
+						</div>
+						<div class="qcol-md-3 menuIcon">
+						<div class="image">
+								<i class="fa fa-university" aria-hidden="true"></i>
+						<p>		
+						<s:a href="%{#frmkUrlUrl}">Amministrazione Framework</s:a>
+				  				</p>
+						</div>
 						</div>
 <!-- 							<%-- <ul class="qnav qnav-pills qnav-stacked">
  -->								<s:url id="oggettoUrl" action="oggetto" escapeAmp="false" includeParams="none">
