@@ -15,7 +15,7 @@
 	<s:param name="task">mainPage</s:param>
 </s:url>
 <s:url id="mieiOggettiUrl" namespace="/" action="oggetto" escapeAmp="false" includeParams="none">
-	<s:param name="task">mainPage</s:param>
+	<s:param name="task">mieiOggetti</s:param>
 </s:url>
 <s:url id="prestitoUrl" namespace="/" action="prestito" escapeAmp="false" includeParams="none">
 	<s:param name="task">mainPage</s:param>
