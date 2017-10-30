@@ -7,7 +7,8 @@
   	<head>
   		<jsp:include page="_head.jsp"></jsp:include>
  		<script type="text/javascript" src="<%=request.getContextPath() %>/scripts/controller/qxOggettoController.js?_<jsp:include page='_version.jsp' />"></script>
-		<qs2:attributeMapAngularFilter type="QBO001_categoria" />
+ 		<script type="text/javascript" src="<%=request.getContextPath() %>/scripts/controller/qxPrestitoController.js?_<jsp:include page='_version.jsp' />"></script>
+ 		<script type="text/javascript" src="<%=request.getContextPath() %>/scripts/controller/qxSoggettoController.js?_<jsp:include page='_version.jsp' />"></script>
   		<script type="text/javascript">
 	var module = angular.module('qborrow');
 	module.constant('labelService', {
@@ -20,25 +21,23 @@
 		</script>
   	</head>
   	<body ng-app="qborrow"> 
-  		<div class="qcontainer-fluid"> 
+  		<div class="qcontainer-fluid" ng-controller="qxSoggettoController"> 
   			<jsp:include page="_header.jsp" />
   			<div class="qcontainer">
-  			
-	  		<div class="frameworkRow"  >
-<!-- 		  		<div class="frameworkLeftMenuCell">
- -->					<%-- <jsp:include page="_left.jsp">
-						<jsp:param name="menuActive" value="oggetto"/>
-					</jsp:include> --%>
-<!-- 				</div>
- -->  				<div class="frameworkMainCell" ng-controller="qxOggettoController" ng-include="scopeController.selectedPage">
-					
-  				</div>
-  				<script type="text/ng-template" id="list"><jsp:include page="_mieiOggetti.jsp" /></script>
-  				<script type="text/ng-template" id="edit"><jsp:include page="_mieiOggettiEdit.jsp" /></script>
+<!-- 	  		<div class="frameworkRow"  >
+ -->		  		<%-- <div class="frameworkLeftMenuCell">
+					<jsp:include page="_left.jsp">
+						<jsp:param name="menuActive" value="soggetto"/>
+					</jsp:include>
+				</div> --%>
+					<jsp:include page="_profilo.jsp" />
+  				
+  				
+				
 							
 			</div>
-			</div>
   		 	<jsp:include page="_footer.jsp" />
+	  	</div>
 	  	</div>	
   	</body>
 </html>

@@ -254,6 +254,9 @@ var qxQborrowHttpService = function($http, qborrowConfig, $timeout) {
 	this.getSoggettoList = function(scopeController, form) {
 		_getSoggettoList(scopeController, form);
 	}
+	this.getMioProfilo = function(scopeController) {
+		_getMioProfilo(scopeController);
+	}
 	
 	function _getSoggettoList(scopeController, form) {
     	var success = function (data) {
@@ -282,6 +285,32 @@ var qxQborrowHttpService = function($http, qborrowConfig, $timeout) {
         });
         scopeController.promise.success(success).error(_manageError);
     }
+	
+	
+	function _getMioProfilo(scopeController) {
+		var success = function (data) {
+        	if((typeof data) == 'string') {
+        		// Not Managed Server error
+        		_manageError(data, 0);
+        		return;
+        	}
+        	if(data.error == true) {
+        		_manageError(data, 0);
+        		return;
+        	}
+        	
+        	scopeController.selectedRow = data;
+        	scopeController.selectedPage = "edit";
+        };
+    	
+        scopeController.promise = $http({ 
+        		method: 'POST', 
+        		url: qborrowConfig.baseUrl + '/soggetto.action?task=editMioProfilo', 
+        		headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        });
+        scopeController.promise.success(success).error(_manageError);
+    }
+	
     
     this.editSoggetto = function(scopeController){
     	var success = function (data) {
@@ -396,6 +425,8 @@ var qxQborrowHttpService = function($http, qborrowConfig, $timeout) {
         	if(data.errors != undefined) {
         		qxValidationError(data, form, $timeout, scopeController);
         	} else {
+            	scopeController.successEditProfilo();
+
         		_getSoggettoList(scopeController, null);
         		scopeController.selectedPage = 'list';
         	}

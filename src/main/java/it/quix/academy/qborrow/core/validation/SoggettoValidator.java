@@ -3,6 +3,8 @@ package it.quix.academy.qborrow.core.validation;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -63,25 +65,42 @@ public class SoggettoValidator extends QborrowAbstractValidator<Soggetto> {
                         soggetto.getDataCompleanno());
                 errors.add(ic2);
             } else {
-                if (monthCorrente - monthCompleanno<0) {
-                	
-                    currentYearInt=currentYearInt-1;
-                }
-                else if(dayCorrente-dayCompleanno<0){
-                	currentYearInt=currentYearInt-1;
-                }
-                	if ((currentYearInt - compleannoYearInt) < 18) {
-                        
-                    
-                        InvalidConstraint<Soggetto> ic1 =
-                            new InvalidConstraintImpl<Soggetto>(Soggetto.class, "error.nonMaggiorenne", propertyPath + "dataCompleanno", soggetto,
-                                soggetto.getDataCompleanno());
-                        errors.add(ic1);
-                    }
+                if (monthCorrente - monthCompleanno < 0) {
 
-                
+                    currentYearInt = currentYearInt - 1;
+                } else if (dayCorrente - dayCompleanno < 0) {
+                    currentYearInt = currentYearInt - 1;
+                }
+                if ((currentYearInt - compleannoYearInt) < 18) {
 
+                    InvalidConstraint<Soggetto> ic1 =
+                        new InvalidConstraintImpl<Soggetto>(Soggetto.class, "error.nonMaggiorenne", propertyPath + "dataCompleanno", soggetto,
+                            soggetto.getDataCompleanno());
+                    errors.add(ic1);
+                }
             }
+            
+            if(soggetto.getEmail()==null){
+            	InvalidConstraint<Soggetto> ic1 =
+                        new InvalidConstraintImpl<Soggetto>(Soggetto.class, "error.emailNonValida", propertyPath + "email", soggetto,
+                            soggetto.getEmail());
+                    errors.add(ic1);
+                }
+            
+            else{                
+            	Pattern pattern=Pattern.compile("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$");
+            	Matcher matcher=pattern.matcher(soggetto.getEmail());
+            	if (matcher.matches()==false) {
+
+                    InvalidConstraint<Soggetto> ic1 =
+                        new InvalidConstraintImpl<Soggetto>(Soggetto.class, "error.emailNonValida", propertyPath + "email", soggetto,
+                            soggetto.getEmail());
+                    errors.add(ic1);
+                }
+            }
+            	
+            }
+            
 
             // insert here custom validations for Soggetto model
             // after a validation check fail create a new InvalidContraint of the
@@ -100,7 +119,7 @@ public class SoggettoValidator extends QborrowAbstractValidator<Soggetto> {
             // [value] is the value of the property which generated the error
             // in the end, add the new invalid constraint to the errors array, es:
             // errors.add(ic);
-        }
+        
 
     }
 }

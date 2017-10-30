@@ -33,6 +33,11 @@ qborrowApp.controller('qxSoggettoController', ['$scope', 'qxQborrowHttpService',
 		qxQborrowHttpService.getSoggettoList($scope.scopeController, $scope.forms.soggettoListForm);
 	}
 	
+	$scope.listMioProfilo = function () {
+// $scope.scopeController.selectedRow = user;
+		qxQborrowHttpService.getMioProfilo($scope.scopeController);	
+		}
+	
 	$scope.edit = function(row){
 		$scope.scopeController.selectedRow = row;
 		qxQborrowHttpService.editSoggetto($scope.scopeController);
@@ -42,6 +47,8 @@ qborrowApp.controller('qxSoggettoController', ['$scope', 'qxQborrowHttpService',
 		$scope.scopeController.selectedRow = row;
 		qxQborrowHttpService.editSoggettoWithCompleanno($scope.scopeController);
 	}
+	
+	
 	
 	$scope.exportXLS = function() {
 		document.location.href =  qborrowConfig.baseUrl + '/soggetto.action?task=exportXls&reset=true&' + quixParamSerializer($scope.scopeController.search, 'soggettoSearch.');
@@ -81,7 +88,18 @@ qborrowApp.controller('qxSoggettoController', ['$scope', 'qxQborrowHttpService',
 	}
 	
 	$scope.saveWithCompleanno = function(row){
-		qxQborrowHttpService.saveSoggettoWithCompleanno($scope.scopeController, $scope.forms.soggettoEditForm);
+//		if($scope.forms.soggettoEditForm.$invalid==true){
+//			SweetAlert.swal("error","form non valido","error");
+//
+//		}
+//		else{
+
+			qxQborrowHttpService.saveSoggettoWithCompleanno($scope.scopeController, $scope.forms.soggettoEditForm);
+//			}
+		}
+	
+	$scope.scopeController.successEditProfilo=function(){
+		SweetAlert.swal("ok","profilo modificato","success");
 	}
 	
 	$scope.resetSearch = function () {
@@ -121,7 +139,7 @@ qborrowApp.controller('qxSoggettoController', ['$scope', 'qxQborrowHttpService',
 	    		object[baseProp + '_description'] =  selectedElement[descrProp];
 	    	}	
    		}, function () {
-    	 	//Ok, modal dismissed senza cambiare i filtri
+    	 	// Ok, modal dismissed senza cambiare i filtri
    		});
     }
 }]);

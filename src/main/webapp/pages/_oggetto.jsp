@@ -2,7 +2,7 @@
 <%@ taglib prefix="qs2" uri="/quix-strut2-tags" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
-<form name="forms.oggettoListForm" novalidate>
+<form name="forms.oggettoListForm" novalidate ng-init="list()">
 	<div class="box box-framework">
 		<div class="box-header with-border">
 			<div class="qrow" style="margin: 1px 10px 10px 6px;display: inline-block;" ng-cloak>

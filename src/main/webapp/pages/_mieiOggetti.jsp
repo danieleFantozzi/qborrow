@@ -191,11 +191,11 @@
 				<tr>
 					
 					<th class="qtext-left"><s:text name="oggetto.list.titolo"/></th>
-					<th class="qtext-left"><s:text name="oggetto.list.descrizione"/></th>
+					<%-- <th class="qtext-left"><s:text name="oggetto.list.descrizione"/></th> --%>
 					<th class="qtext-left"><s:text name="oggetto.list.categoria"/></th>
 					<th class="qtext-left"><s:text name="oggetto.list.inPrestito"/></th>
-					<th class="qtext-left"><s:text name="oggetto.list.beneficiario"/></th>
-					<th class="qtext-left"><s:text name="oggetto.list.dataScadenza"/></th>
+					<%-- <th class="qtext-left"><s:text name="oggetto.list.beneficiario"/></th> --%>
+					<%-- <th class="qtext-left"><s:text name="oggetto.list.dataScadenza"/></th> --%>
 					<th>&nbsp;</th>
 				</tr>
 			</thead>
@@ -203,7 +203,7 @@
 				<tr ng-repeat="row in scopeController.result.list">
 					
 					<td>{{ row.titolo }}</td>
-					<td>{{ row.descrizione }}</td>
+					<!-- <td>{{ row.descrizione }}</td> -->
 					<td>{{ row.categoria | sysattribute:'QBO001_categoria' }}</td>
 					<td ng-if="row.oggettoPrestato ==true">
 						<i class="fa fa-check qtext-success" aria-hidden="true"></i>
@@ -211,18 +211,21 @@
 					<td ng-if="row.oggettoPrestato ==false">
 						<i class="fa fa-times qtext-danger" aria-hidden="true"></i>
 					</td>
-					<td>{{ row.prestito.beneficiario.nome}}  {{row.prestito.beneficiario.cognome}}</td>
+					<!-- <td>{{ row.prestito.beneficiario.nome}}  {{row.prestito.beneficiario.cognome}}</td> -->
 					
-					<td class="qtext-left" nowrap="nowrap">{{ row.prestito.dataScadenza | date:"<s:text name="format.date4" />" }}</td>
+					<%-- <td class="qtext-left" nowrap="nowrap">{{ row.prestito.dataScadenza | date:"<s:text name="format.date4" />" }}</td> --%>
 					<td class="qtext-right">
 						<div class="qbtn-group" ng-hide="popup">
-		                  	<button class="qbtn btn-framework-color" ng-click="edit(row)" type="button"><i class="fa fa-pencil"></i>&nbsp;<s:text name="button.edit" /></button>
+		                  	<%-- <button class="qbtn btn-framework-color" ng-click="edit(row)" type="button"><i class="fa fa-pencil"></i>&nbsp;<s:text name="button.edit" /></button> --%>
 		                   	<button data-toggle="qdropdown" class="qbtn btn-framework-color qdropdown-toggle" type="button" aria-expanded="false">
 		                       	<span class="qcaret"></span>
 		                       	<span class="qsr-only"></span>
 		                    </button>
 		                    <ul role="qmenu" class="qdropdown-menu qdropdown-menu-right">
-		                       	<li ng-click="delete(row)"><a><i class="fa fa-trash-o"></i>&nbsp;<s:text name="button.delete" /></a></li>
+		                    <li  ng-click="edit(row)"><a><i class="fa fa-trash-o"></i>&nbsp;<s:text name="button.modifica" /></a></li>
+		                       	<li ng-if="row.oggettoPrestato ==false" ng-click="delete(row)"><a><i class="fa fa-trash-o"></i>&nbsp;<s:text name="button.delete" /></a></li>
+		                       	<li ng-if="row.oggettoPrestato ==false" ng-click="nuovoPrestito(row)"><a><i class="fa fa-trash-o"></i>&nbsp;<s:text name="button.nuovoPrestito" /></a></li>
+		                       	
 		                    </ul>
 		              	</div>
 		              	<div ng-show="popup">		 	

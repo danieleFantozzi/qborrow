@@ -42,7 +42,13 @@ qborrowApp.controller('qxOggettoController', ['$scope', 'qxQborrowHttpService', 
 	}
 	
 	$scope.edit = function(row){
-		$scope.scopeController.selectedRow = row;
+//		row.proprietario="";
+//		row.dataUltimaModifica="";
+//		row.prestito="";
+		$scope.scopeController.beneficiario=row.prestito.beneficiario_username;
+		$scope.scopeController.dataScadenza=row.prestito.dataScadenza;
+		$scope.scopeController.dataPrestito=row.prestito.dataPrestito;
+		$scope.scopeController.selectedRow={id:row.id};
 		qxQborrowHttpService.editOggetto($scope.scopeController);
 	}
 	

@@ -62,7 +62,7 @@
 						<div class="image">
 								<i class="fa fa-university" aria-hidden="true"></i>
 						<p>		
-						<s:a href="%{#frmkUrlUrl}">Amministrazione Framework</s:a>
+						<s:a href="%{#frmkUrl}">Amministrazione Framework</s:a>
 				  				</p>
 						</div>
 						</div>

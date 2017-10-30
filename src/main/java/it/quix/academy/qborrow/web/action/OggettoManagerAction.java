@@ -55,8 +55,19 @@ public class OggettoManagerAction extends OggettoAbstractManagerAction {
 
     private OggettoSearch oggettoSearch = new OggettoSearch();
 
+    private List<Oggetto> oggettiList = new ArrayList<Oggetto>();
+
     public String mieiOggetti() {
         return "mieiOggetti";
+    }
+
+    public String listMieiOggettiStruts() throws QborrowException {
+        oggettoSearch = new OggettoSearch();
+        oggettoSearch.setPage(0);
+        oggettoSearch.setRowPerPage(10);
+
+        oggettiList = getQborrowManager().getMieiOggettiList(oggettoSearch);
+        return "mieiOggettiStruts";
     }
 
     /**
@@ -113,6 +124,20 @@ public class OggettoManagerAction extends OggettoAbstractManagerAction {
      */
     public void setOggettoSearch(OggettoSearch oggettoSearch) {
         this.oggettoSearch = oggettoSearch;
+    }
+
+    /**
+     * @return the oggettiList
+     */
+    public List<Oggetto> getOggettiList() {
+        return oggettiList;
+    }
+
+    /**
+     * @param oggettiList the oggettiList to set
+     */
+    public void setOggettiList(List<Oggetto> oggettiList) {
+        this.oggettiList = oggettiList;
     }
 
 }
