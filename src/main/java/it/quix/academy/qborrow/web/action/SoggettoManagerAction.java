@@ -94,8 +94,6 @@ public class SoggettoManagerAction extends SoggettoAbstractManagerAction {
         }
     }
 
-   
-
     public String mioProfilo() {
         return "mioProfilo";
     }

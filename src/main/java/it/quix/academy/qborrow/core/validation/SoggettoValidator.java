@@ -79,47 +79,43 @@ public class SoggettoValidator extends QborrowAbstractValidator<Soggetto> {
                     errors.add(ic1);
                 }
             }
-            
-            if(soggetto.getEmail()==null){
-            	InvalidConstraint<Soggetto> ic1 =
-                        new InvalidConstraintImpl<Soggetto>(Soggetto.class, "error.emailNonValida", propertyPath + "email", soggetto,
-                            soggetto.getEmail());
-                    errors.add(ic1);
-                }
-            
-            else{                
-            	Pattern pattern=Pattern.compile("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$");
-            	Matcher matcher=pattern.matcher(soggetto.getEmail());
-            	if (matcher.matches()==false) {
+
+            if (soggetto.getEmail() == null) {
+                InvalidConstraint<Soggetto> ic1 =
+                    new InvalidConstraintImpl<Soggetto>(Soggetto.class, "error.emailNonValida", propertyPath + "email", soggetto, soggetto.getEmail());
+                errors.add(ic1);
+            }
+
+            else {
+                Pattern pattern = Pattern.compile("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$");
+                Matcher matcher = pattern.matcher(soggetto.getEmail());
+                if (matcher.matches() == false) {
 
                     InvalidConstraint<Soggetto> ic1 =
-                        new InvalidConstraintImpl<Soggetto>(Soggetto.class, "error.emailNonValida", propertyPath + "email", soggetto,
-                            soggetto.getEmail());
+                        new InvalidConstraintImpl<Soggetto>(Soggetto.class, "error.emailNonValida", propertyPath + "email", soggetto, soggetto.getEmail());
                     errors.add(ic1);
                 }
             }
-            	
-            }
-            
 
-            // insert here custom validations for Soggetto model
-            // after a validation check fail create a new InvalidContraint of the
-            // validated type
-            // and instantiate an InvalidContraintImpl of the validated type with
-            // the error information, es:
-            // InvalidConstraint<Type> ic = new
-            // InvalidConstraintImpl<Type>(Type.class, message, propertyPath,
-            // rootBean, value);
-            // where:
-            // [message] is the name of a bundle which contains the appropriate
-            // error message
-            // [propertyPath] is the path from the root bean to the property which
-            // generated the error
-            // [rootBean] is the root bean being validated
-            // [value] is the value of the property which generated the error
-            // in the end, add the new invalid constraint to the errors array, es:
-            // errors.add(ic);
-        
+        }
+
+        // insert here custom validations for Soggetto model
+        // after a validation check fail create a new InvalidContraint of the
+        // validated type
+        // and instantiate an InvalidContraintImpl of the validated type with
+        // the error information, es:
+        // InvalidConstraint<Type> ic = new
+        // InvalidConstraintImpl<Type>(Type.class, message, propertyPath,
+        // rootBean, value);
+        // where:
+        // [message] is the name of a bundle which contains the appropriate
+        // error message
+        // [propertyPath] is the path from the root bean to the property which
+        // generated the error
+        // [rootBean] is the root bean being validated
+        // [value] is the value of the property which generated the error
+        // in the end, add the new invalid constraint to the errors array, es:
+        // errors.add(ic);
 
     }
 }

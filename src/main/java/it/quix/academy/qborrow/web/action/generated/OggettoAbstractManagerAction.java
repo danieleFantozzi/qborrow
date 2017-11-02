@@ -210,6 +210,11 @@ public class OggettoAbstractManagerAction extends QborrowManagerAction {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         try {
             oggetto = getQborrowManager().getOggetto(oggetto.getId());
+            List<Prestito> listPrestito = getQborrowManager().getPrestitoListByOggetto(oggetto.getId());
+            if (listPrestito.size() > 0) {
+                Prestito prestito = listPrestito.get(0);
+                oggetto.setPrestito(prestito);
+            }
             return manageSerialize(oggetto);
         } catch (Exception e) {
             return manageException("Error on edit Oggetto", e);
@@ -226,7 +231,10 @@ public class OggettoAbstractManagerAction extends QborrowManagerAction {
             oggetto = new Oggetto();
         }
         try {
-            getQborrowManager().saveOggetto(oggetto);
+
+            oggetto.setProprietario_username(userContext.getRealUserDn());
+            System.out.println("provaaaaa:  " + oggetto.getPrestito());
+            getQborrowManager().saveOggettoPrestito(oggetto, oggetto.getPrestito());
             return manageOkMessage();
         } catch (ValidationException e) {
             return manageValidationError(e.getInvalidConstraints(), "save");

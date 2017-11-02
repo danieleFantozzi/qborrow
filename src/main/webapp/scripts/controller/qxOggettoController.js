@@ -7,6 +7,7 @@ qborrowApp.controller('qxOggettoController', ['$scope', 'qxQborrowHttpService', 
 	$scope.scopeController.selectedPage = 'list';
 	$scope.scopeController.search= {};
 	$scope.scopeController.search.page = 1;
+	$scope.listaUsername=[];
 	
 	$scope.search = function () {
 		$scope.scopeController.search.order = 0;
@@ -42,13 +43,28 @@ qborrowApp.controller('qxOggettoController', ['$scope', 'qxQborrowHttpService', 
 	}
 	
 	$scope.edit = function(row){
+		
+		
 //		row.proprietario="";
 //		row.dataUltimaModifica="";
 //		row.prestito="";
-		$scope.scopeController.beneficiario=row.prestito.beneficiario_username;
-		$scope.scopeController.dataScadenza=row.prestito.dataScadenza;
-		$scope.scopeController.dataPrestito=row.prestito.dataPrestito;
-		$scope.scopeController.selectedRow={id:row.id};
+//		if(row.prestito!=null){
+//		$scope.scopeController.selectedRow.prestito.beneficiario=row.prestito.beneficiario_username;
+//		
+//		
+//		$scope.scopeController.selectedRow.prestito.dataScadenza=row.prestito.dataScadenza;
+//		
+//		
+//		$scope.scopeController.selectedRow.prestito.dataPrestito=row.prestito.dataPrestito;
+//		}
+		
+//		else{
+//			$scope.scopeController={};
+//			
+//		}
+		//$scope.scopeController.result={};
+		qxQborrowHttpService.getSoggettoList($scope.scopeController, $scope.forms.soggettoListForm);
+		$scope.scopeController.selectedRow=row;
 		qxQborrowHttpService.editOggetto($scope.scopeController);
 	}
 	
@@ -75,8 +91,31 @@ qborrowApp.controller('qxOggettoController', ['$scope', 'qxQborrowHttpService', 
 		});
 	}
 	
+	
+	$scope.getLocation = function(val) {
+	    return $http.get('//maps.googleapis.com/maps/api/geocode/json', {
+	      params: {
+	        address: val,
+	        sensor: false
+	      }
+	    }).then(function(response){
+	      return response.data.results.map(function(item){
+	        return item.formatted_address;
+	      });
+	    });
+	  };
+	
+//	$scope.change=function(){
+//		$scope.scopeController.search=$scope.scopeController.selectedRow.prestito.beneficiario.username;
+//		qxQborrowHttpService.getSoggettoList($scope.scopeController, $scope.forms.soggettoListForm);
+//		$scope.listaUsername=$scope.scopeController.result;
+//	}
+	
 	$scope.create = function(){
+
 		$scope.scopeController.selectedRow = {};
+		qxQborrowHttpService.getSoggettoList($scope.scopeController, $scope.forms.soggettoListForm);
+
 		$scope.scopeController.selectedPage = "edit";
 	}
 	
@@ -86,6 +125,7 @@ qborrowApp.controller('qxOggettoController', ['$scope', 'qxQborrowHttpService', 
 	}
 	
 	$scope.save = function(row){
+		$scope.scopeController.selectedRow.dataUltimaModifica= new Date();
 		qxQborrowHttpService.saveOggetto($scope.scopeController, $scope.forms.oggettoEditForm);
 	}
 	

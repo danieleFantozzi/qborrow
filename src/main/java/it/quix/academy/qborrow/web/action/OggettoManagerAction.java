@@ -53,22 +53,20 @@ public class OggettoManagerAction extends OggettoAbstractManagerAction {
      */
     private static Log log = LogFactory.getLog(OggettoManagerAction.class);
 
-    private OggettoSearch oggettoSearch = new OggettoSearch();
-
     private List<Oggetto> oggettiList = new ArrayList<Oggetto>();
 
     public String mieiOggetti() {
         return "mieiOggetti";
     }
 
-    public String listMieiOggettiStruts() throws QborrowException {
-        oggettoSearch = new OggettoSearch();
-        oggettoSearch.setPage(0);
-        oggettoSearch.setRowPerPage(10);
-
-        oggettiList = getQborrowManager().getMieiOggettiList(oggettoSearch);
-        return "mieiOggettiStruts";
-    }
+    // public String listMieiOggettiStruts() throws QborrowException {
+    // oggettoSearch = new OggettoSearch();
+    // oggettoSearch.setPage(0);
+    // oggettoSearch.setRowPerPage(10);
+    //
+    // oggettiList = getQborrowManager().getMieiOggettiList(oggettoSearch);
+    // return "mieiOggettiStruts";
+    // }
 
     /**
      * metodo di lista che ritorna i miei oggetti
@@ -79,25 +77,25 @@ public class OggettoManagerAction extends OggettoAbstractManagerAction {
     public String listMieiOggetti() throws QborrowException {
         try {
             log.debug("il mio username è: " + getUserContext().getRealUserDn());
-            oggettoSearch.setProprietario_username(getUserContext().getRealUserDn());
+            getOggettoSearch().setProprietario_username(getUserContext().getRealUserDn());
             // Validate the search model
-            getQborrowManager().validateOggettoSearch(oggettoSearch);
+            getQborrowManager().validateOggettoSearch(getOggettoSearch());
             // Perform count of record that satisfy search filters
-            long total = getQborrowManager().countMieiOggetti(oggettoSearch);
+            long total = getQborrowManager().countMieiOggetti(getOggettoSearch());
             // If there are results ...
             List<Oggetto> oggettoList = null;
             if (total > 0) {
                 // Search the results to display
                 do {
-                    oggettoList = getQborrowManager().getMieiOggettiList(oggettoSearch);
-                    if (oggettoList.isEmpty() && oggettoSearch.getPage() > 0) {
+                    oggettoList = getQborrowManager().getMieiOggettiList(getOggettoSearch());
+                    if (oggettoList.isEmpty() && getOggettoSearch().getPage() > 0) {
                         if (log.isInfoEnabled()) {
-                            log.info("The request page " + oggettoSearch.getPage() + " was empty."
-                                + ((oggettoSearch.getPage() > 1) ? " Try with page " + (oggettoSearch.getPage() - 1) + "." : ""));
+                            log.info("The request page " + getOggettoSearch().getPage() + " was empty."
+                                + ((getOggettoSearch().getPage() > 1) ? " Try with page " + (getOggettoSearch().getPage() - 1) + "." : ""));
                         }
-                        oggettoSearch.setPage(oggettoSearch.getPage() - 1);
+                        getOggettoSearch().setPage(getOggettoSearch().getPage() - 1);
                     }
-                } while (0 < oggettoSearch.getPage() && oggettoList.isEmpty());
+                } while (0 < getOggettoSearch().getPage() && oggettoList.isEmpty());
             }
 
             // Compose the response
@@ -115,16 +113,16 @@ public class OggettoManagerAction extends OggettoAbstractManagerAction {
     /**
      * @return the oggettoSearch
      */
-    public OggettoSearch getOggettoSearch() {
-        return oggettoSearch;
-    }
-
-    /**
-     * @param oggettoSearch the oggettoSearch to set
-     */
-    public void setOggettoSearch(OggettoSearch oggettoSearch) {
-        this.oggettoSearch = oggettoSearch;
-    }
+    // public OggettoSearch getOggettoSearch() {
+    // return oggettoSearch;
+    // }
+    //
+    // /**
+    // * @param oggettoSearch the oggettoSearch to set
+    // */
+    // public void setOggettoSearch(OggettoSearch oggettoSearch) {
+    // this.oggettoSearch = oggettoSearch;
+    // }
 
     /**
      * @return the oggettiList

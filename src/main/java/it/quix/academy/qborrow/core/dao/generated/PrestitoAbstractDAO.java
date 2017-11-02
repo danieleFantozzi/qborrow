@@ -79,6 +79,8 @@ public abstract class PrestitoAbstractDAO extends AbstractJDBCDAO {
             // Set the parameters
             int p = 1;
             super.setParameterString(statement, p++, prestito.getBeneficiario_username());
+            // super.setParameterString(statement, p++, prestito.getBeneficiario().getUsername());
+
             super.setParameterInteger(statement, p++, prestito.getOggettoPrestato_id());
             super.setParameterDate(statement, p++, prestito.getDataScadenza());
             super.setParameterDate(statement, p++, prestito.getDataPrestito());
@@ -536,6 +538,7 @@ public abstract class PrestitoAbstractDAO extends AbstractJDBCDAO {
             StringBuilder query = new StringBuilder(EOL);
             query.append("SELECT * FROM prestiti ").append(EOL);
             query.append("WHERE oggetto_prestato = ?  ").append(EOL);
+            query.append("order by data_prestito DESC ");
             // Query logging
             if (queryLog.isInfoEnabled()) {
                 queryLog.info(query);

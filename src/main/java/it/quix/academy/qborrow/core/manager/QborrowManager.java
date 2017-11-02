@@ -7,7 +7,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.transaction.annotation.Transactional;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -18,16 +17,16 @@ import it.quix.framework.core.exception.DAOStoreException;
 import it.quix.framework.core.validation.exception.ValidationException;
 import it.quix.framework.core.manager.UserContextHolder;
 import it.quix.academy.qborrow.core.model.QborrowUserContext;
-
 import it.quix.academy.qborrow.core.validation.ValidatorFactory;
 import it.quix.academy.qborrow.core.dao.DAOFactory;
+import it.quix.academy.qborrow.core.dao.PrestitoDAO;
+import it.quix.academy.qborrow.core.dao.generated.PrestitoAbstractDAO;
 import it.quix.academy.qborrow.core.model.Oggetto;
 import it.quix.academy.qborrow.core.search.OggettoSearch;
 import it.quix.academy.qborrow.core.model.Prestito;
 import it.quix.academy.qborrow.core.search.PrestitoSearch;
 import it.quix.academy.qborrow.core.model.Soggetto;
 import it.quix.academy.qborrow.core.search.SoggettoSearch;
-
 import it.quix.framework.core.handler.SysAttributeHandler;
 
 /**
@@ -131,6 +130,11 @@ public class QborrowManager {
         return saveOggetto(oggetto, true);
     }
 
+    @Transactional(rollbackFor = { QborrowException.class, ValidationException.class })
+    public Oggetto saveOggettoPrestito(Oggetto oggetto, Prestito prestito) throws QborrowException, ValidationException {
+        return saveOggettoPrestito(oggetto, prestito, true);
+    }
+
     /**
      * persist the passed Oggetto object to database
      * 
@@ -151,6 +155,48 @@ public class QborrowManager {
             createOggetto(oggetto, validate);
         } else {
             updateOggetto(oggetto, validate);
+        }
+        return oggetto;
+    }
+
+    @Transactional(rollbackFor = { QborrowException.class, ValidationException.class })
+    public Oggetto saveOggettoPrestito(Oggetto oggetto, Prestito prestito, boolean validate) throws QborrowException, ValidationException {
+        if (validate) {
+            validateOggetto(oggetto);
+        }
+        if (oggetto.getId() == null) {
+            createOggetto(oggetto, validate);
+            if (prestito != null) {
+                prestito.setBeneficiario_username(prestito.getBeneficiario().getUsername());
+                prestito.setOggettoPrestato_id(oggetto.getId());
+                if (prestito.getBeneficiario_username() != null) {
+                    prestito.setOggettoPrestato_id(oggetto.getId());
+                    createPrestito(prestito, validate);
+                }
+            }
+
+        } else {
+        	
+            updateOggetto(oggetto, validate);
+            if (prestito != null) {
+            	prestito.setOggettoPrestato_id(oggetto.getId());
+                prestito.setBeneficiario_username(prestito.getBeneficiario().getUsername());
+
+            if (prestito.getBeneficiario_username() != null) {
+                List<Prestito> tempList = getDaoFactory().getPrestitoDAO().getPrestitoListByOggettoPrestato(oggetto.getId());
+                if (tempList.size() > 0) {
+                    try {
+                        getDaoFactory().getPrestitoDAO().updatePrestitoOnlyPrestato(prestito);
+                    } catch (DAOStoreException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                } else {
+                    createPrestito(prestito);
+                }
+
+            }
+        }
         }
         return oggetto;
     }

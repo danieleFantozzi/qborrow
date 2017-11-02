@@ -23,8 +23,9 @@
   		<div class="qcontainer-fluid"> 
   			<jsp:include page="_header.jsp" />
   			<div class="qcontainer">
+  			<div class=qrow >
   			
-	  		<div class="frameworkRow"  >
+  			
 <!-- 		  		<div class="frameworkLeftMenuCell">
  -->					<%-- <jsp:include page="_left.jsp">
 						<jsp:param name="menuActive" value="oggetto"/>
