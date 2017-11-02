@@ -289,4 +289,8 @@ public class PrestitoAbstractManagerAction extends QborrowManagerAction {
     public void setPrestito(Prestito prestito) {
         this.prestito = prestito;
     }
+    
+    public String newPrestito(){
+    	return "newPrestito";
+    }
 }
